@@ -1,0 +1,242 @@
+[33mcommit 5f0d44d406e5d1e4cc7308700dd15ae777cfc87b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Shekhar <shekkharkalshetti@gmail.com>
+Date:   Sun Sep 17 00:01:54 2023 +0530
+
+    Second commit
+
+[1mdiff --git a/node_modules/.bin/ejs b/node_modules/.bin/ejs[m
+[1mdeleted file mode 100644[m
+[1mindex 002d2ac..0000000[m
+[1m--- a/node_modules/.bin/ejs[m
+[1m+++ /dev/null[m
+[36m@@ -1,12 +0,0 @@[m
+[31m-#!/bin/sh[m
+[31m-basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[31m-[m
+[31m-case `uname` in[m
+[31m-    *CYGWIN*|*MINGW*|*MSYS*) basedir=`cygpath -w "$basedir"`;;[m
+[31m-esac[m
+[31m-[m
+[31m-if [ -x "$basedir/node" ]; then[m
+[31m-  exec "$basedir/node"  "$basedir/../ejs/bin/cli.js" "$@"[m
+[31m-else [m
+[31m-  exec node  "$basedir/../ejs/bin/cli.js" "$@"[m
+[31m-fi[m
+[1mdiff --git a/node_modules/.bin/ejs.cmd b/node_modules/.bin/ejs.cmd[m
+[1mdeleted file mode 100644[m
+[1mindex 7cc2b56..0000000[m
+[1m--- a/node_modules/.bin/ejs.cmd[m
+[1m+++ /dev/null[m
+[36m@@ -1,17 +0,0 @@[m
+[31m-@ECHO off[m
+[31m-GOTO start[m
+[31m-:find_dp0[m
+[31m-SET dp0=%~dp0[m
+[31m-EXIT /b[m
+[31m-:start[m
+[31m-SETLOCAL[m
+[31m-CALL :find_dp0[m
+[31m-[m
+[31m-IF EXIST "%dp0%\node.exe" ([m
+[31m-  SET "_prog=%dp0%\node.exe"[m
+[31m-) ELSE ([m
+[31m-  SET "_prog=node"[m
+[31m-  SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[31m-)[m
+[31m-[m
+[31m-endLocal & goto #_undefined_# 2>NUL || title %COMSPEC% & "%_prog%"  "%dp0%\..\ejs\bin\cli.js" %*[m
+[1mdiff --git a/node_modules/.bin/ejs.ps1 b/node_modules/.bin/ejs.ps1[m
+[1mdeleted file mode 100644[m
+[1mindex f31305e..0000000[m
+[1m--- a/node_modules/.bin/ejs.ps1[m
+[1m+++ /dev/null[m
+[36m@@ -1,28 +0,0 @@[m
+[31m-#!/usr/bin/env pwsh[m
+[31m-$basedir=Split-Path $MyInvocation.MyCommand.Definition -Parent[m
+[31m-[m
+[31m-$exe=""[m
+[31m-if ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {[m
+[31m-  # Fix case when both the Windows and Linux builds of Node[m
+[31m-  # are installed in the same directory[m
+[31m-  $exe=".exe"[m
+[31m-}[m
+[31m-$ret=0[m
+[31m-if (Test-Path "$basedir/node$exe") {[m
+[31m-  # Support pipeline input[m
+[31m-  if ($MyInvocation.ExpectingInput) {[m
+[31m-    $input | & "$basedir/node$exe"  "$basedir/../ejs/bin/cli.js" $args[m
+[31m-  } else {[m
+[31m-    & "$basedir/node$exe"  "$basedir/../ejs/bin/cli.js" $args[m
+[31m-  }[m
+[31m-  $ret=$LASTEXITCODE[m
+[31m-} else {[m
+[31m-  # Support pipeline input[m
+[31m-  if ($MyInvocation.ExpectingInput) {[m
+[31m-    $input | & "node$exe"  "$basedir/../ejs/bin/cli.js" $args[m
+[31m-  } else {[m
+[31m-    & "node$exe"  "$basedir/../ejs/bin/cli.js" $args[m
+[31m-  }[m
+[31m-  $ret=$LASTEXITCODE[m
+[31m-}[m
+[31m-exit $ret[m
+[1mdiff --git a/node_modules/.bin/jake b/node_modules/.bin/jake[m
+[1mdeleted file mode 100644[m
+[1mindex 8580efe..0000000[m
+[1m--- a/node_modules/.bin/jake[m
+[1m+++ /dev/null[m
+[36m@@ -1,12 +0,0 @@[m
+[31m-#!/bin/sh[m
+[31m-basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[31m-[m
+[31m-case `uname` in[m
+[31m-    *CYGWIN*|*MINGW*|*MSYS*) basedir=`cygpath -w "$basedir"`;;[m
+[31m-esac[m
+[31m-[m
+[31m-if [ -x "$basedir/node" ]; then[m
+[31m-  exec "$basedir/node"  "$basedir/../jake/bin/cli.js" "$@"[m
+[31m-else [m
+[31m-  exec node  "$basedir/../jake/bin/cli.js" "$@"[m
+[31m-fi[m
+[1mdiff --git a/node_modules/.bin/jake.cmd b/node_modules/.bin/jake.cmd[m
+[1mdeleted file mode 100644[m
+[1mindex 1ccccef..0000000[m
+[1m--- a/node_modules/.bin/jake.cmd[m
+[1m+++ /dev/null[m
+[36m@@ -1,17 +0,0 @@[m
+[31m-@ECHO off[m
+[31m-GOTO start[m
+[31m-:find_dp0[m
+[31m-SET dp0=%~dp0[m
+[31m-EXIT /b[m
+[31m-:start[m
+[31m-SETLOCAL[m
+[31m-CALL :find_dp0[m
+[31m-[m
+[31m-IF EXIST "%dp0%\node.exe" ([m
+[31m-  SET "_prog=%dp0%\node.exe"[m
+[31m-) ELSE ([m
+[31m-  SET "_prog=node"[m
+[31m-  SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[31m-)[m
+[31m-[m
+[31m-endLocal & goto #_undefined_# 2>NUL || title %COMSPEC% & "%_prog%"  "%dp0%\..\jake\bin\cli.js" %*[m
+[1mdiff --git a/node_modules/.bin/jake.ps1 b/node_modules/.bin/jake.ps1[m
+[1mdeleted file mode 100644[m
+[1mindex d86e1bd..0000000[m
+[1m--- a/node_modules/.bin/jake.ps1[m
+[1m+++ /dev/null[m
+[36m@@ -1,28 +0,0 @@[m
+[31m-#!/usr/bin/env pwsh[m
+[31m-$basedir=Split-Path $MyInvocation.MyCommand.Definition -Parent[m
+[31m-[m
+[31m-$exe=""[m
+[31m-if ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {[m
+[31m-  # Fix case when both the Windows and Linux builds of Node[m
+[31m-  # are installed in the same directory[m
+[31m-  $exe=".exe"[m
+[31m-}[m
+[31m-$ret=0[m
+[31m-if (Test-Path "$basedir/node$exe") {[m
+[31m-  # Support pipeline input[m
+[31m-  if ($MyInvocation.ExpectingInput) {[m
+[31m-    $input | & "$basedir/node$exe"  "$basedir/../jake/bin/cli.js" $args[m
+[31m-  } else {[m
+[31m-    & "$basedir/node$exe"  "$basedir/../jake/bin/cli.js" $args[m
+[31m-  }[m
+[31m-  $ret=$LASTEXITCODE[m
+[31m-} else {[m
+[31m-  # Support pipeline input[m
+[31m-  if ($MyInvocation.ExpectingInput) {[m
+[31m-    $input | & "node$exe"  "$basedir/../jake/bin/cli.js" $args[m
+[31m-  } else {[m
+[31m-    & "node$exe"  "$basedir/../jake/bin/cli.js" $args[m
+[31m-  }[m
+[31m-  $ret=$LASTEXITCODE[m
+[31m-}[m
+[31m-exit $ret[m
+[1mdiff --git a/node_modules/.bin/mime b/node_modules/.bin/mime[m
+[1mdeleted file mode 100644[m
+[1mindex 0a62a1b..0000000[m
+[1m--- a/node_modules/.bin/mime[m
+[1m+++ /dev/null[m
+[36m@@ -1,12 +0,0 @@[m
+[31m-#!/bin/sh[m
+[31m-basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[31m-[m
+[31m-case `uname` in[m
+[31m-    *CYGWIN*|*MINGW*|*MSYS*) basedir=`cygpath -w "$basedir"`;;[m
+[31m-esac[m
+[31m-[m
+[31m-if [ -x "$basedir/node" ]; then[m
+[31m-  exec "$basedir/node"  "$basedir/../mime/cli.js" "$@"[m
+[31m-else [m
+[31m-  exec node  "$basedir/../mime/cli.js" "$@"[m
+[31m-fi[m
+[1mdiff --git a/node_modules/.bin/mime.cmd b/node_modules/.bin/mime.cmd[m
+[1mdeleted file mode 100644[m
+[1mindex 54491f1..0000000[m
+[1m--- a/node_modules/.bin/mime.cmd[m
+[1m+++ /dev/null[m
+[36m@@ -1,17 +0,0 @@[m
+[31m-@ECHO off[m
+[31m-GOTO start[m
+[31m-:find_dp0[m
+[31m-SET dp0=%~dp0[m
+[31m-EXIT /b[m
+[31m-:start[m
+[31m-SETLOCAL[m
+[31m-CALL :find_dp0[m
+[31m-[m
+[31m-IF EXIST "%dp0%\node.exe" ([m
+[31m-  SET "_prog=%dp0%\node.exe"[m
+[31m-) ELSE ([m
+[31m-  SET "_prog=node"[m
+[31m-  SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[31m-)[m
+[31m-[m
+[31m-endLocal & goto #_undefined_# 2>NUL || title %COMSPEC% & "%_prog%"  "%dp0%\..\mime\cli.js" %*[m
+[1mdiff --git a/node_modules/.bin/mime.ps1 b/node_modules/.bin/mime.ps1[m
+[1mdeleted file mode 100644[m
+[1mindex 2222f40..0000000[m
+[1m--- a/node_modules/.bin/mime.ps1[m
+[1m+++ /dev/null[m
+[36m@@ -1,28 +0,0 @@[m
+[31m-#!/usr/bin/env pwsh[m
+[31m-$basedir=Split-Path $MyInvocation.MyCommand.Definition -Parent[m
+[31m-[m
+[31m-$exe=""[m
+[31m-if ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {[m
+[31m-  # Fix case when both the Windows and Linux builds of Node[m
+[31m-  # are installed in the same directory[m
+[31m-  $exe=".exe"[m
+[31m-}[m
+[31m-$ret=0[m
+[31m-if (Test-Path "$basedir/node$exe") {[m
+[31m-  # Support pipeline input[m
+[31m-  if ($MyInvocation.ExpectingInput) {[m
+[31m-    $input | & "$basedir/node$exe"  "$basedir/../mime/cli.js" $args[m
+[31m-  } else {[m
+[31m-    & "$basedir/node$exe"  "$basedir/../mime/cli.js" $args[m
+[31m-  }[m
+[31m-  $ret=$LASTEXITCODE[m
+[31m-} else {[m
+[31m-  # Support pipeline input[m
+[31m-  if ($MyInvocation.ExpectingInput) {[m
+[31m-    $input | & "node$exe"  "$basedir/../mime/cli.js" $args[m
+[31m-  } else {[m
+[31m-    & "node$exe"  "$basedir/../mime/cli.js" $args[m
+[31m-  }[m
+[31m-  $ret=$LASTEXITCODE[m
+[31m-}[m
+[31m-exit $ret[m
+[1mdiff --git a/node_modules/.bin/mkdirp b/node_modules/.bin/mkdirp[m
+[1mdeleted file mode 100644[m
+[1mindex 6ba5765..0000000[m
+[1m--- a/node_modules/.bin/mkdirp[m
+[1m+++ /dev/null[m
+[36m@@ -1,12 +0,0 @@[m
+[31m-#!/bin/sh[m
+[31m-basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[31m-[m
+[31m-case `uname` in[m
+[31m-    
